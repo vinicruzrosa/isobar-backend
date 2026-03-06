@@ -1,0 +1,11 @@
+[
+  {
+    "id": "1",
+    "name": "Pink Floyd",
+    "image": "image.png",
+    "genre": "Progressive Rock",
+    "biography": "Legendary band...",
+    "numPlays": 1500000,
+    "albums": ["The Dark Side of the Moon", "The Wall"]
+  }
+]
