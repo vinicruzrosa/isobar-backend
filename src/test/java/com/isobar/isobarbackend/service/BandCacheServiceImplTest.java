@@ -27,7 +27,7 @@ class BandCacheServiceImplTest {
     private BandCacheServiceImpl bandCacheServiceImpl;
 
     @Test
-    void deveRetornarListaDeBandas() {
+    void shouldReturnTheListOfBands() {
         BandDTO mockBand = new BandDTO(
                 "1", "Pink Floyd", "image.png", "Rock", "Bio", 1000L, List.of("album1")
         );

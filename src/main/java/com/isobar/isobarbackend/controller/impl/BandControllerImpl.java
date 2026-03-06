@@ -3,6 +3,7 @@ package com.isobar.isobarbackend.controller.impl;
 
 import com.isobar.isobarbackend.controller.BandController;
 import com.isobar.isobarbackend.model.Band;
+import com.isobar.isobarbackend.model.enums.SortOrder;
 import com.isobar.isobarbackend.service.BandService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ public class BandControllerImpl implements BandController {
     }
 
     @Override
-    public ResponseEntity<List<Band>> getBands(String name, String genre, Long minPlays, String sort) {
+    public ResponseEntity<List<Band>> getBands(String name, String genre, Long minPlays, SortOrder sort) {
         List<Band> bands = bandService.getBands(name, genre, minPlays, sort);
         return ResponseEntity.ok(bands);
     }

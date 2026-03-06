@@ -2,6 +2,8 @@ package com.isobar.isobarbackend.service.impl;
 
 import com.isobar.isobarbackend.dto.BandDTO;
 import com.isobar.isobarbackend.model.Band;
+
+import com.isobar.isobarbackend.model.enums.SortOrder;
 import com.isobar.isobarbackend.service.BandCacheService;
 import com.isobar.isobarbackend.service.BandService;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public List<Band> getBands(String name, String genre, Long minPlays, String sort) {
+    public List<Band> getBands(String name, String genre, Long minPlays, SortOrder sort) {
         List<BandDTO> dtos = cacheService.getCachedBands();
 
         return dtos.stream()
@@ -46,8 +48,8 @@ public class BandServiceImpl implements BandService {
         return minPlays == null || b.getNumPlays() >= minPlays;
     }
 
-    private Comparator<Band> getComparator(String sort) {
-        if ("popularity".equalsIgnoreCase(sort)) {
+    private Comparator<Band> getComparator(SortOrder sort) {
+        if (SortOrder.POPULARITY.equals(sort)) {
             return Comparator.comparing(Band::getNumPlays).reversed();
         }
         return Comparator.comparing(Band::getName, String.CASE_INSENSITIVE_ORDER);
