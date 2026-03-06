@@ -28,6 +28,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 
+    //Documentation
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4'
+
     // Lombok (Configuração completa para Main e Test)
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

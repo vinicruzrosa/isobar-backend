@@ -1,6 +1,7 @@
 package com.isobar.isobarbackend.dto;
 import java.util.List;
 
+
 public record BandDTO(
         String id,
         String name,

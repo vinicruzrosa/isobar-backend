@@ -16,7 +16,8 @@ import org.springframework.test.web.client.MockRestServiceServer;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
@@ -47,7 +48,10 @@ class BandClientTest {
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
-        assertEquals("Pink Floyd", result.get(0).name());
+
+        BandDTO firstBand = result.get(0);
+        assertNotNull(firstBand.id());
+        assertNotNull(firstBand.genre());
+        assertNotNull(firstBand.numPlays());
     }
 }

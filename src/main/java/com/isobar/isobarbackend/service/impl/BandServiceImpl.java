@@ -1,10 +1,11 @@
 package com.isobar.isobarbackend.service.impl;
 
-import com.isobar.isobarbackend.model.Band;
 import com.isobar.isobarbackend.dto.BandDTO;
+import com.isobar.isobarbackend.model.Band;
 import com.isobar.isobarbackend.service.BandCacheService;
 import com.isobar.isobarbackend.service.BandService;
 import org.springframework.stereotype.Service;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,26 +20,37 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public List<Band> getBands(String name, String sort) {
+    public List<Band> getBands(String name, String genre, Long minPlays, String sort) {
         List<BandDTO> dtos = cacheService.getCachedBands();
 
-        List<Band> bands = dtos.stream()
+        return dtos.stream()
                 .map(this::mapToModel)
+                .filter(b -> isNameMatch(b, name))
+                .filter(b -> isGenreMatch(b, genre))
+                .filter(b -> isPopularityMatch(b, minPlays))
+                .sorted(getComparator(sort))
                 .collect(Collectors.toList());
+    }
 
-        if (name != null && !name.isEmpty()) {
-            bands = bands.stream()
-                    .filter(b -> b.getName().toLowerCase().contains(name.toLowerCase()))
-                    .collect(Collectors.toList());
+    private boolean isNameMatch(Band b, String name) {
+        return name == null || name.isBlank() ||
+                b.getName().toLowerCase().contains(name.toLowerCase());
+    }
+
+    private boolean isGenreMatch(Band b, String genre) {
+        return genre == null || genre.isBlank() ||
+                b.getGenre().equalsIgnoreCase(genre);
+    }
+
+    private boolean isPopularityMatch(Band b, Long minPlays) {
+        return minPlays == null || b.getNumPlays() >= minPlays;
+    }
+
+    private Comparator<Band> getComparator(String sort) {
+        if ("popularity".equalsIgnoreCase(sort)) {
+            return Comparator.comparing(Band::getNumPlays).reversed();
         }
-
-        if ("alphabetical".equalsIgnoreCase(sort)) {
-            bands.sort(Comparator.comparing(Band::getName));
-        } else if ("popularity".equalsIgnoreCase(sort)) {
-            bands.sort(Comparator.comparing(Band::getNumPlays).reversed());
-        }
-
-        return bands;
+        return Comparator.comparing(Band::getName, String.CASE_INSENSITIVE_ORDER);
     }
 
     private Band mapToModel(BandDTO dto) {
