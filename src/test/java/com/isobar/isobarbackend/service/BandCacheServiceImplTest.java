@@ -1,7 +1,8 @@
 package com.isobar.isobarbackend.service;
 
-import com.isobar.isobarbackend.client.BandClient;
+import com.isobar.isobarbackend.client.impl.BandClientImpl;
 import com.isobar.isobarbackend.dto.BandDTO;
+import com.isobar.isobarbackend.service.impl.BandCacheServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,13 +18,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BandCacheServiceTest {
+class BandCacheServiceImplTest {
 
     @Mock
-    private BandClient bandClient;
+    private BandClientImpl bandClient;
 
     @InjectMocks
-    private BandCacheService bandCacheService;
+    private BandCacheServiceImpl bandCacheServiceImpl;
 
     @Test
     void deveRetornarListaDeBandas() {
@@ -34,7 +35,7 @@ class BandCacheServiceTest {
 
         when(bandClient.getAllBands()).thenReturn(expectedBands);
 
-        List<BandDTO> result = bandCacheService.getCachedBands();
+        List<BandDTO> result = bandCacheServiceImpl.getCachedBands();
 
         assertNotNull(result);
         assertEquals(1, result.size());

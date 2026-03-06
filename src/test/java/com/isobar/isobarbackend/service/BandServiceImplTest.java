@@ -2,6 +2,7 @@ package com.isobar.isobarbackend.service;
 
 import com.isobar.isobarbackend.dto.BandDTO;
 import com.isobar.isobarbackend.model.Band;
+import com.isobar.isobarbackend.service.impl.BandServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,13 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BandServiceTest {
+class BandServiceImplTest {
 
     @Mock
     private BandCacheService cacheService;
 
     @InjectMocks
-    private BandService bandService;
+    private BandServiceImpl bandService;
 
     private List<BandDTO> mockDtos;
 
