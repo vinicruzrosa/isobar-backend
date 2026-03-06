@@ -1,18 +1,17 @@
 package com.isobar.isobarbackend.model;
 
 import lombok.Builder;
-import lombok.Value;
-
+import lombok.Data;
 import java.util.List;
 
-@Value
-@Builder(toBuilder = true)
+@Data
+@Builder
 public class Band {
-    String id;
-    String name;
-    String image;
-    String genre;
-    String biography;
-    Long numPlays;
-    List<String> albums;
+    private String id;
+    private String name;
+    private String image;
+    private String genre;
+    private String biography;
+    private Long numPlays;
+    private List<String> albums;
 }
