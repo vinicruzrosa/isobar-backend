@@ -37,8 +37,9 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
-    // Testes (Inclui JUnit 5, Mockito, AssertJ e RestClientTest)
+    // Testes (Inclui JUnit 5, Mockito, AssertJ e RestClientTest,Wiremock)
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock:4.1.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

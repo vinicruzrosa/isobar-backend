@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/bands"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "[{\"id\":\"1\",\"name\":\"Muse\",\"genre\":\"rock\",\"numPlays\":5000000}]"
+  }
+}
