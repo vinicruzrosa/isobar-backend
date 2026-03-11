@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class BandServiceImpl implements BandService {
@@ -31,28 +30,28 @@ public class BandServiceImpl implements BandService {
                 .filter(b -> isGenreMatch(b, genre))
                 .filter(b -> isPopularityMatch(b, minPlays))
                 .sorted(getComparator(sort))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private boolean isNameMatch(Band b, String name) {
         return name == null || name.isBlank() ||
-                b.getName().toLowerCase().contains(name.toLowerCase());
+                (b.getName() != null && b.getName().toLowerCase().contains(name.toLowerCase()));
     }
 
     private boolean isGenreMatch(Band b, String genre) {
         return genre == null || genre.isBlank() ||
-                b.getGenre().equalsIgnoreCase(genre);
+                (b.getGenre() != null && b.getGenre().equalsIgnoreCase(genre));
     }
 
     private boolean isPopularityMatch(Band b, Long minPlays) {
-        return minPlays == null || b.getNumPlays() >= minPlays;
+        return minPlays == null || (b.getNumPlays() != null && b.getNumPlays() >= minPlays);
     }
 
     private Comparator<Band> getComparator(SortOrder sort) {
         if (SortOrder.POPULARITY.equals(sort)) {
-            return Comparator.comparing(Band::getNumPlays).reversed();
+            return Comparator.comparing(Band::getNumPlays, Comparator.nullsLast(Comparator.naturalOrder())).reversed();
         }
-        return Comparator.comparing(Band::getName, String.CASE_INSENSITIVE_ORDER);
+        return Comparator.comparing(Band::getName, Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER));
     }
 
     private Band mapToModel(BandDTO dto) {
