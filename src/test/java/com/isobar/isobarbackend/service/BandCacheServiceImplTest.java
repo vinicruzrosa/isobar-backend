@@ -1,6 +1,6 @@
 package com.isobar.isobarbackend.service;
 
-import com.isobar.isobarbackend.client.impl.BandClientImpl;
+import com.isobar.isobarbackend.client.BandClient;
 import com.isobar.isobarbackend.dto.BandDTO;
 import com.isobar.isobarbackend.service.impl.BandCacheServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 class BandCacheServiceImplTest {
 
     @Mock
-    private BandClientImpl bandClient;
+    private BandClient bandClient;
 
     @InjectMocks
     private BandCacheServiceImpl bandCacheServiceImpl;
